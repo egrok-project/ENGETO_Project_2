@@ -33,8 +33,7 @@ def validate_guess(guess: str) -> Tuple[bool, str]:
 def count_bulls_cows(secret: str, guess: str) -> Tuple[int, int]:
     """Return number of bulls (correct digit & place) and cows (correct digit, wrong place)."""
     bulls = sum(s == g for s, g in zip(secret, guess))
-    common = sum(min(secret.count(d), guess.count(d)) for d in set(guess))
-    cows = common - bulls
+    cows = sum((g in secret) and (secret[i] != g) for i, g in enumerate(guess))
     return bulls, cows
 
 
